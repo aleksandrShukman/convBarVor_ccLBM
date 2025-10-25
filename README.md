@@ -1,5 +1,5 @@
 # convBarVor_ccLBM
-This C++ code implements the Lattice Boltzmann Method based on a athermal D3Q19 velocity set and served as a foundation in a study of spurious aero-acoustic emissions created by the interaction of a convected barotropic vortex and cell-centered grid refinement interface, located in the middle of a double-periodic quasi-2D domain, cf. https://doi.org/10.3390/fluids10020031.
+This C++ code implements the Lattice Boltzmann Method based on an athermal D3Q19 velocity set and served as a foundation in a study of spurious aero-acoustic emissions created by the interaction of a convected barotropic vortex and cell-centered grid refinement interface, located in the middle of a double-periodic quasi-2D domain, cf. https://doi.org/10.3390/fluids10020031.
 
 <img width="550" height="323" alt="grafik" src="https://github.com/user-attachments/assets/a94b241d-e0ad-47cc-9a5c-9017ab0926de" />
 <br />
