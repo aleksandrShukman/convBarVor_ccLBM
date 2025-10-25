@@ -5,7 +5,6 @@
 #include <array>
 
 Control::Control(string filename) : timeStepMax_(static_cast<int>(readValue(filename, "Max-Time-Step"))),
-									convCriterion_(static_cast<double>(readValue(filename, "Convergence-Criterion"))),
 									writeInterval_(static_cast<int>(readValue(filename, "WriteInterval"))),
 									density_(static_cast<double>(readValue(filename, "Density"))),
 									numberOfThreads_(static_cast<int>(readValue(filename, "Threads"))),
@@ -48,10 +47,6 @@ Control::Control(string filename) : timeStepMax_(static_cast<int>(readValue(file
             speedOfSound_ = molecularVelocity_ / sqrt(3.);
             collisionFrequency_ = (pow(speedOfSound_, 2) * timeStep_) / (kinematicViscosity_ + 0.5 * pow(speedOfSound_, 2) * timeStep_);
 			reynoldsNumber_ = (initVelocity_[0] * 0.06) / kinematicViscosity_; //!Reynolds number based on vortex diameter --> initialization() in Lattice.cpp
-
-			//!turbulence options
-			turbulenceModelling_ = false;
-			smagorinskyConstant_ = 0.;
 
 			//!lattice parameters (D3Q19)
 			xsiX_[0] = molecularVelocity_;

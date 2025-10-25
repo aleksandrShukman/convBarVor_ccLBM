@@ -203,7 +203,7 @@ void Voxel::calcVelocity(Control& bc, double& dens, double* velo, double* distrA
 
 
 ///////////////////////////////////////////////////////////////////
-//!					SRT	COLLISION OPERATORS
+//!SRT	COLLISION OPERATORS
 ///////////////////////////////////////////////////////////////////
 
 void Voxel::collideSRT(Control& bc, bool& alternating)
@@ -1753,7 +1753,7 @@ void Voxel::collideMRT_RMbasis(Control& bc, bool& alternating)
 
 	//do retransformation
 	double dummy[19];
-	this->transformMomentsToDistributions_RMbasis(dummy, rawMoments, bc); //calc distributions by re transformation
+	this->transformMomentsToDistributions_RMbasis(dummy, rawMoments, bc); //!calc distributions by re transformation
 
 	for (int dir = 0; dir < 19; dir++)
 	{
@@ -1761,7 +1761,7 @@ void Voxel::collideMRT_RMbasis(Control& bc, bool& alternating)
 	}
 }
 
-void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, double* velo, Control& bc)		//method to calc eq distribution from raw moments
+void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, double* velo, Control& bc)		//!method to calc eq distribution from raw moments
 {
 	double ux = velo[0];
 	double uy = velo[1];
@@ -1779,8 +1779,8 @@ void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, double* velo
 	double* weights = bc.getWeightFactors();
 
 	//!COREIXAS' EXTENDED EQUILIBRIUM BASED ON RAW MOMENT FORMALISM
-	//calc eq distributions for all directions, consider higer order extension of equilibrium,
-	//see Coreixas et al.: Comprehensive comparison of collision models in the lattice Boltzmann framework: Theoretical investigations. PHYSICAL REVIEW E 100, 033305 (2019), eq. H15 - H21
+	//!calc eq distributions for all directions, consider higer order extension of equilibrium,
+	//!see Coreixas et al.: Comprehensive comparison of collision models in the lattice Boltzmann framework: Theoretical investigations. PHYSICAL REVIEW E 100, 033305 (2019), eq. H15 - H21
 	equil[0] = density * weights[0] * (1 + 3 * ux * xsi + 3 * (uxSq - uySq - uzSq) * xsiSq - 9 * (ux * uySq + ux * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uxSq * uzSq) * xsiPow4);
 	equil[1] = density * weights[1] * (1 + 3 * uy * xsi + 3 * (-uxSq + uySq - uzSq) * xsiSq - 9 * (uy * uxSq + uy * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uySq * uzSq) * xsiPow4);
 	equil[2] = density * weights[2] * (1 - 3 * ux * xsi + 3 * (uxSq - uySq - uzSq) * xsiSq + 9 * (ux * uySq + ux * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uxSq * uzSq) * xsiPow4);
@@ -1801,10 +1801,10 @@ void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, double* velo
 	equil[17] = density * weights[17] * (1 + 3 * (-ux - uy) * xsi + 3 * (uxSq + uySq) * xsiSq + 9 * ux * uy * xsiSq + 9 * (-uxSq * uy - ux * uySq) * xsiPow3 + 9 * uxSq * uySq * xsiPow4);
 	equil[18] = density * weights[18] * (1 - (uxSq + uySq + uzSq) * xsiSq + 3 * (uxSq * uySq + uxSq * uzSq + uySq * uzSq) * xsiPow4);
 
-}//end calcEquilibrium4_RMbasis
+}//!end calcEquilibrium4_RMbasis
 
 
-void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, Vector3D* velo, Control& bc)		//method to calc eq distribution from raw moments
+void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, Vector3D* velo, Control& bc)		//!method to calc eq distribution from raw moments
 {
 	double ux = velo->getX();
 	double uy = velo->getY();
@@ -1822,8 +1822,8 @@ void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, Vector3D* ve
 	double* weights = bc.getWeightFactors();
 
 	//!COREIXAS' EXTENDED EQUILIBRIUM BASED ON RAW MOMENT FORMALISM
-	//calc eq distributions for all directions, consider higer order extension of equilibrium,
-	//see Coreixas et al.: Comprehensive comparison of collision models in the lattice Boltzmann framework: Theoretical investigations. PHYSICAL REVIEW E 100, 033305 (2019), eq. H15 - H21
+	//!calc eq distributions for all directions, consider higer order extension of equilibrium,
+	//!see Coreixas et al.: Comprehensive comparison of collision models in the lattice Boltzmann framework: Theoretical investigations. PHYSICAL REVIEW E 100, 033305 (2019), eq. H15 - H21
 	equil[0] = density * weights[0] * (1 + 3 * ux * xsi + 3 * (uxSq - uySq - uzSq) * xsiSq - 9 * (ux * uySq + ux * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uxSq * uzSq) * xsiPow4);
 	equil[1] = density * weights[1] * (1 + 3 * uy * xsi + 3 * (-uxSq + uySq - uzSq) * xsiSq - 9 * (uy * uxSq + uy * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uySq * uzSq) * xsiPow4);
 	equil[2] = density * weights[2] * (1 - 3 * ux * xsi + 3 * (uxSq - uySq - uzSq) * xsiSq + 9 * (ux * uySq + ux * uzSq) * xsiPow3 - 9 * (uxSq * uySq + uxSq * uzSq) * xsiPow4);
@@ -1844,190 +1844,84 @@ void Voxel::calcEquilibrium4_RMbasis(double* equil, double density, Vector3D* ve
 	equil[17] = density * weights[17] * (1 + 3 * (-ux - uy) * xsi + 3 * (uxSq + uySq) * xsiSq + 9 * ux * uy * xsiSq + 9 * (-uxSq * uy - ux * uySq) * xsiPow3 + 9 * uxSq * uySq * xsiPow4);
 	equil[18] = density * weights[18] * (1 - (uxSq + uySq + uzSq) * xsiSq + 3 * (uxSq * uySq + uxSq * uzSq + uySq * uzSq) * xsiPow4);
 
-}//end calcEquilibrium4_RMbasis
+}//!end calcEquilibrium4_RMbasis
 
 
-void Voxel::forceVectorToMomentSpace_RMbasis(Control& bc, double* forceVector, double* forceVectorMomentSpace)   //choose forceVector by alternating (double (*functionParameters)[19],double* forceVectorMomentSpace,bool alternating) const
+void Voxel::calcAllMoments_RMbasis(Control& bc, double* moments, double* distribution) const   //!choose distribution by alternating (double (*functionParameters)[19],double* moments,bool alternating) const
 {
 	double molecularVelocity = bc.getMolecularVelocity();
-	double molecularVelocitySquared = pow(molecularVelocity, 2.0);//bc.getStatics()->getMolecularVelocitySquared();
-	double molecularVelocityPower3 = pow(molecularVelocity, 3.0);//bc.getStatics()->getMolecularVelocityPower3();
-	double molecularVelocityPower4 = pow(molecularVelocity, 4.0);//bc.getStatics()->getMolecularVelocityPower4();
-
-			//calc forceVectorMomentSpace --> save operations by hard coding
-	forceVectorMomentSpace[0] = 0.;
-	for (unsigned short direction = 0; direction < 19; direction++) forceVectorMomentSpace[0] += forceVector[direction];	//density=M_000
-
-	forceVectorMomentSpace[1] = forceVector[0] - forceVector[2] + forceVector[6] + forceVector[7] - forceVector[10] - forceVector[11] - forceVector[14] + forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[1] *= molecularVelocity;	//momentum in x-direction=M_100
-
-	forceVectorMomentSpace[2] = forceVector[1] - forceVector[3] + forceVector[8] + forceVector[9] - forceVector[12] - forceVector[13] + forceVector[14] - forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[2] *= molecularVelocity;	//momentum in y-direction=M_010
-
-	forceVectorMomentSpace[3] = forceVector[4] - forceVector[5] + forceVector[6] - forceVector[7] + forceVector[8] - forceVector[9] + forceVector[10] - forceVector[11] + forceVector[12] - forceVector[13];
-	forceVectorMomentSpace[3] *= molecularVelocity;	//momentum in z-direction=M_001
-
-	forceVectorMomentSpace[4] = 0;
-	for (unsigned short direction = 0; direction < 6; direction++) forceVectorMomentSpace[4] += forceVector[direction];
-	double temp = 0.;
-	for (unsigned short direction = 6; direction < 18; direction++) temp += forceVector[direction];
-	forceVectorMomentSpace[4] += 2. * temp;
-	forceVectorMomentSpace[4] *= molecularVelocitySquared;	//trace T=M_200+M_020+M_002 of stress tensor, i.e. Pi_xx+Pi_yy+Pi_zz (in lattice units)
-
-	forceVectorMomentSpace[5] = forceVector[0] + forceVector[2] - forceVector[4] - forceVector[5] - forceVector[8] - forceVector[9] - forceVector[12] - forceVector[13] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[5] *= molecularVelocitySquared;	//N_xz=M_200-M_002, i.e. Pi_xx- Pi_zz (in lattice units)
-
-	forceVectorMomentSpace[6] = forceVector[1] + forceVector[3] - forceVector[4] - forceVector[5] - forceVector[6] - forceVector[7] - forceVector[10] - forceVector[11] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[6] *= molecularVelocitySquared;	//N_yz=M_020-M_002, i.e. Pi_yy- Pi_zz (in lattice units)
-
-	forceVectorMomentSpace[7] = -forceVector[14] - forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[7] *= molecularVelocitySquared;	//shear Pi_xy=M_110 (in lattice units)
-
-	forceVectorMomentSpace[8] = forceVector[6] - forceVector[7] - forceVector[10] + forceVector[11];
-	forceVectorMomentSpace[8] *= molecularVelocitySquared;	//shear Pi_xz=M_101 (in lattice units)
-
-	forceVectorMomentSpace[9] = forceVector[8] - forceVector[9] - forceVector[12] + forceVector[13];
-	forceVectorMomentSpace[9] *= molecularVelocitySquared;	//shear Pi_yz=M_011 (in lattice units)
-
-	forceVectorMomentSpace[10] = forceVector[6] - forceVector[7] + forceVector[10] - forceVector[11];
-	forceVectorMomentSpace[10] *= molecularVelocityPower3;	//heat flux Q_xxz=M_201 (in lattice units)
-
-	forceVectorMomentSpace[11] = forceVector[6] + forceVector[7] - forceVector[10] - forceVector[11];
-	forceVectorMomentSpace[11] *= molecularVelocityPower3;	//heat flux Q_xzz=M_102 (in lattice units)
-
-	forceVectorMomentSpace[12] = forceVector[8] - forceVector[9] + forceVector[12] - forceVector[13];
-	forceVectorMomentSpace[12] *= molecularVelocityPower3;	//heat flux Q_yyz=M_021 (in lattice units)
-
-	forceVectorMomentSpace[13] = forceVector[8] + forceVector[9] - forceVector[12] - forceVector[13];
-	forceVectorMomentSpace[13] *= molecularVelocityPower3;	//heat flux Q_yzz=M_012 (in lattice units)
-
-	forceVectorMomentSpace[14] = forceVector[14] - forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[14] *= molecularVelocityPower3;	//heat flux Q_xxy=M_210 (in lattice units)
-
-	forceVectorMomentSpace[15] = -forceVector[14] + forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[15] *= molecularVelocityPower3;	//heat flux Q_xyy=M_120 (in lattice units)
-
-	forceVectorMomentSpace[16] = forceVector[6] + forceVector[7] + forceVector[10] + forceVector[11];
-	forceVectorMomentSpace[16] *= molecularVelocityPower4;	//M_202 (in lattice units)
-
-	forceVectorMomentSpace[17] = forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[17] *= molecularVelocityPower4;	//M_220 (in lattice units)
-
-	forceVectorMomentSpace[18] = forceVector[8] + forceVector[9] + forceVector[12] + forceVector[13];
-	forceVectorMomentSpace[18] *= molecularVelocityPower4;	//M_022 (in lattice units)
-
-}//end forceVectorToMomentSpace_RMbasis
-
-
-void Voxel::forceVectorToPopSpace_RMbasis(Control& bc, double* forceVectorMomentSpace, double* forceVector)		//method to transform raw forceVectorMomentSpace to forceVector
-{
-	//inverse molecular velocities
-	static double xsi = 1. / bc.getMolecularVelocity();
-	static double xsiPower2 = pow(xsi, 2);
-	static double xsiPower3 = pow(xsi, 3);
-	static double xsiPower4 = pow(xsi, 4);
-
-	static double oneDivSix = 1. / 6.;
-
-	//transform forceVectorMomentSpace to forceVector for all directions (do only necessary calculations, i.e. matrix entry !=0)
-	forceVector[0] = 0.5 * forceVectorMomentSpace[1] * xsi + oneDivSix * (forceVectorMomentSpace[4] + 2. * forceVectorMomentSpace[5] - forceVectorMomentSpace[6]) * xsiPower2 - 0.5 * (forceVectorMomentSpace[11] + forceVectorMomentSpace[15]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[16] + forceVectorMomentSpace[17]) * xsiPower4;
-	forceVector[1] = 0.5 * forceVectorMomentSpace[2] * xsi + oneDivSix * (forceVectorMomentSpace[4] - forceVectorMomentSpace[5] + 2. * forceVectorMomentSpace[6]) * xsiPower2 - 0.5 * (forceVectorMomentSpace[13] + forceVectorMomentSpace[14]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[17] + forceVectorMomentSpace[18]) * xsiPower4;
-	forceVector[2] = -0.5 * forceVectorMomentSpace[1] * xsi + oneDivSix * (forceVectorMomentSpace[4] + 2. * forceVectorMomentSpace[5] - forceVectorMomentSpace[6]) * xsiPower2 + 0.5 * (forceVectorMomentSpace[11] + forceVectorMomentSpace[15]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[16] + forceVectorMomentSpace[17]) * xsiPower4;
-	forceVector[3] = -0.5 * forceVectorMomentSpace[2] * xsi + oneDivSix * (forceVectorMomentSpace[4] - forceVectorMomentSpace[5] + 2. * forceVectorMomentSpace[6]) * xsiPower2 + 0.5 * (forceVectorMomentSpace[13] + forceVectorMomentSpace[14]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[17] + forceVectorMomentSpace[18]) * xsiPower4;
-	forceVector[4] = 0.5 * forceVectorMomentSpace[3] * xsi + oneDivSix * (forceVectorMomentSpace[4] - forceVectorMomentSpace[5] - forceVectorMomentSpace[6]) * xsiPower2 - 0.5 * (forceVectorMomentSpace[10] + forceVectorMomentSpace[12]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[16] + forceVectorMomentSpace[18]) * xsiPower4;
-	forceVector[5] = -0.5 * forceVectorMomentSpace[3] * xsi + oneDivSix * (forceVectorMomentSpace[4] - forceVectorMomentSpace[5] - forceVectorMomentSpace[6]) * xsiPower2 + 0.5 * (forceVectorMomentSpace[10] + forceVectorMomentSpace[12]) * xsiPower3 - 0.5 * (forceVectorMomentSpace[16] + forceVectorMomentSpace[18]) * xsiPower4;
-	forceVector[6] = 0.25 * forceVectorMomentSpace[8] * xsiPower2 + 0.25 * (forceVectorMomentSpace[10] + forceVectorMomentSpace[11]) * xsiPower3 + 0.25 * forceVectorMomentSpace[16] * xsiPower4;
-	forceVector[7] = -0.25 * forceVectorMomentSpace[8] * xsiPower2 - 0.25 * (forceVectorMomentSpace[10] - forceVectorMomentSpace[11]) * xsiPower3 + 0.25 * forceVectorMomentSpace[16] * xsiPower4;
-	forceVector[8] = 0.25 * forceVectorMomentSpace[9] * xsiPower2 + 0.25 * (forceVectorMomentSpace[12] + forceVectorMomentSpace[13]) * xsiPower3 + 0.25 * forceVectorMomentSpace[18] * xsiPower4;
-	forceVector[9] = -0.25 * forceVectorMomentSpace[9] * xsiPower2 - 0.25 * (forceVectorMomentSpace[12] - forceVectorMomentSpace[13]) * xsiPower3 + 0.25 * forceVectorMomentSpace[18] * xsiPower4;
-	forceVector[10] = -0.25 * forceVectorMomentSpace[8] * xsiPower2 + 0.25 * (forceVectorMomentSpace[10] - forceVectorMomentSpace[11]) * xsiPower3 + 0.25 * forceVectorMomentSpace[16] * xsiPower4;
-	forceVector[11] = 0.25 * forceVectorMomentSpace[8] * xsiPower2 - 0.25 * (forceVectorMomentSpace[10] + forceVectorMomentSpace[11]) * xsiPower3 + 0.25 * forceVectorMomentSpace[16] * xsiPower4;
-	forceVector[12] = -0.25 * forceVectorMomentSpace[9] * xsiPower2 + 0.25 * (forceVectorMomentSpace[12] - forceVectorMomentSpace[13]) * xsiPower3 + 0.25 * forceVectorMomentSpace[18] * xsiPower4;
-	forceVector[13] = 0.25 * forceVectorMomentSpace[9] * xsiPower2 - 0.25 * (forceVectorMomentSpace[12] + forceVectorMomentSpace[13]) * xsiPower3 + 0.25 * forceVectorMomentSpace[18] * xsiPower4;
-	forceVector[14] = -0.25 * forceVectorMomentSpace[7] * xsiPower2 + 0.25 * (forceVectorMomentSpace[14] - forceVectorMomentSpace[15]) * xsiPower3 + 0.25 * forceVectorMomentSpace[17] * xsiPower4;
-	forceVector[15] = -0.25 * forceVectorMomentSpace[7] * xsiPower2 - 0.25 * (forceVectorMomentSpace[14] - forceVectorMomentSpace[15]) * xsiPower3 + 0.25 * forceVectorMomentSpace[17] * xsiPower4;
-	forceVector[16] = 0.25 * forceVectorMomentSpace[7] * xsiPower2 + 0.25 * (forceVectorMomentSpace[14] + forceVectorMomentSpace[15]) * xsiPower3 + 0.25 * forceVectorMomentSpace[17] * xsiPower4;
-	forceVector[17] = 0.25 * forceVectorMomentSpace[7] * xsiPower2 - 0.25 * (forceVectorMomentSpace[14] + forceVectorMomentSpace[15]) * xsiPower3 + 0.25 * forceVectorMomentSpace[17] * xsiPower4;
-	forceVector[18] = forceVectorMomentSpace[0] - forceVectorMomentSpace[4] * xsiPower2 + (forceVectorMomentSpace[16] + forceVectorMomentSpace[17] + forceVectorMomentSpace[18]) * xsiPower4;
-
-}//end forceVectorToVeloSpace_RMbasis
-
-
-void Voxel::calcAllMoments_RMbasis(Control& bc, double* moments, double* distribution) const   //choose distribution by alternating (double (*functionParameters)[19],double* moments,bool alternating) const
-{
-	double molecularVelocity = bc.getMolecularVelocity();
-	double molecularVelocitySquared = pow(molecularVelocity, 2.0);//bc.getStatics()->getMolecularVelocitySquared();
-	double molecularVelocityPower3 = pow(molecularVelocity, 3.0);//bc.getStatics()->getMolecularVelocityPower3();
-	double molecularVelocityPower4 = pow(molecularVelocity, 4.0);//bc.getStatics()->getMolecularVelocityPower4();
+	double molecularVelocitySquared = pow(molecularVelocity, 2.0); //!bc.getStatics()->getMolecularVelocitySquared();
+	double molecularVelocityPower3 = pow(molecularVelocity, 3.0); //!bc.getStatics()->getMolecularVelocityPower3();
+	double molecularVelocityPower4 = pow(molecularVelocity, 4.0); //!bc.getStatics()->getMolecularVelocityPower4();
 
 			//calc moments --> save operations by hard coding
 	moments[0] = 0.;
-	for (unsigned short direction = 0; direction < 19; direction++) moments[0] += distribution[direction];	//density=M_000
+	for (unsigned short direction = 0; direction < 19; direction++) moments[0] += distribution[direction];	//!density=M_000
 
 	moments[1] = distribution[0] - distribution[2] + distribution[6] + distribution[7] - distribution[10] - distribution[11] - distribution[14] + distribution[15] + distribution[16] - distribution[17];
-	moments[1] *= molecularVelocity;	//momentum in x-direction=M_100
+	moments[1] *= molecularVelocity;	//!momentum in x-direction=M_100
 
 	moments[2] = distribution[1] - distribution[3] + distribution[8] + distribution[9] - distribution[12] - distribution[13] + distribution[14] - distribution[15] + distribution[16] - distribution[17];
-	moments[2] *= molecularVelocity;	//momentum in y-direction=M_010
+	moments[2] *= molecularVelocity;	//!momentum in y-direction=M_010
 
 	moments[3] = distribution[4] - distribution[5] + distribution[6] - distribution[7] + distribution[8] - distribution[9] + distribution[10] - distribution[11] + distribution[12] - distribution[13];
-	moments[3] *= molecularVelocity;	//momentum in z-direction=M_001
+	moments[3] *= molecularVelocity;	//!momentum in z-direction=M_001
 
 	moments[4] = 0;
 	for (unsigned short direction = 0; direction < 6; direction++) moments[4] += distribution[direction];
 	double temp = 0.;
 	for (unsigned short direction = 6; direction < 18; direction++) temp += distribution[direction];
 	moments[4] += 2. * temp;
-	moments[4] *= molecularVelocitySquared;	//trace T=M_200+M_020+M_002 of stress tensor, i.e. Pi_xx+Pi_yy+Pi_zz (in lattice units)
+	moments[4] *= molecularVelocitySquared;	//!trace T=M_200+M_020+M_002 of stress tensor, i.e. Pi_xx+Pi_yy+Pi_zz (in lattice units)
 
 	moments[5] = distribution[0] + distribution[2] - distribution[4] - distribution[5] - distribution[8] - distribution[9] - distribution[12] - distribution[13] + distribution[14] + distribution[15] + distribution[16] + distribution[17];
-	moments[5] *= molecularVelocitySquared;	//N_xz=M_200-M_002, i.e. Pi_xx- Pi_zz (in lattice units)
+	moments[5] *= molecularVelocitySquared;	//!N_xz=M_200-M_002, i.e. Pi_xx- Pi_zz (in lattice units)
 
 	moments[6] = distribution[1] + distribution[3] - distribution[4] - distribution[5] - distribution[6] - distribution[7] - distribution[10] - distribution[11] + distribution[14] + distribution[15] + distribution[16] + distribution[17];
-	moments[6] *= molecularVelocitySquared;	//N_yz=M_020-M_002, i.e. Pi_yy- Pi_zz (in lattice units)
+	moments[6] *= molecularVelocitySquared;	//!N_yz=M_020-M_002, i.e. Pi_yy- Pi_zz (in lattice units)
 
 	moments[7] = -distribution[14] - distribution[15] + distribution[16] + distribution[17];
-	moments[7] *= molecularVelocitySquared;	//shear Pi_xy=M_110 (in lattice units)
+	moments[7] *= molecularVelocitySquared;	//!shear Pi_xy=M_110 (in lattice units)
 
 	moments[8] = distribution[6] - distribution[7] - distribution[10] + distribution[11];
-	moments[8] *= molecularVelocitySquared;	//shear Pi_xz=M_101 (in lattice units)
+	moments[8] *= molecularVelocitySquared;	//!shear Pi_xz=M_101 (in lattice units)
 
 	moments[9] = distribution[8] - distribution[9] - distribution[12] + distribution[13];
-	moments[9] *= molecularVelocitySquared;	//shear Pi_yz=M_011 (in lattice units)
+	moments[9] *= molecularVelocitySquared;	//!shear Pi_yz=M_011 (in lattice units)
 
 	moments[10] = distribution[6] - distribution[7] + distribution[10] - distribution[11];
-	moments[10] *= molecularVelocityPower3;	//heat flux Q_xxz=M_201 (in lattice units)
+	moments[10] *= molecularVelocityPower3;	//!heat flux Q_xxz=M_201 (in lattice units)
 
 	moments[11] = distribution[6] + distribution[7] - distribution[10] - distribution[11];
-	moments[11] *= molecularVelocityPower3;	//heat flux Q_xzz=M_102 (in lattice units)
+	moments[11] *= molecularVelocityPower3;	//!heat flux Q_xzz=M_102 (in lattice units)
 
 	moments[12] = distribution[8] - distribution[9] + distribution[12] - distribution[13];
-	moments[12] *= molecularVelocityPower3;	//heat flux Q_yyz=M_021 (in lattice units)
+	moments[12] *= molecularVelocityPower3;	//!heat flux Q_yyz=M_021 (in lattice units)
 
 	moments[13] = distribution[8] + distribution[9] - distribution[12] - distribution[13];
-	moments[13] *= molecularVelocityPower3;	//heat flux Q_yzz=M_012 (in lattice units)
+	moments[13] *= molecularVelocityPower3;	//!heat flux Q_yzz=M_012 (in lattice units)
 
 	moments[14] = distribution[14] - distribution[15] + distribution[16] - distribution[17];
-	moments[14] *= molecularVelocityPower3;	//heat flux Q_xxy=M_210 (in lattice units)
+	moments[14] *= molecularVelocityPower3;	//!heat flux Q_xxy=M_210 (in lattice units)
 
 	moments[15] = -distribution[14] + distribution[15] + distribution[16] - distribution[17];
-	moments[15] *= molecularVelocityPower3;	//heat flux Q_xyy=M_120 (in lattice units)
+	moments[15] *= molecularVelocityPower3;	//!heat flux Q_xyy=M_120 (in lattice units)
 
 	moments[16] = distribution[6] + distribution[7] + distribution[10] + distribution[11];
-	moments[16] *= molecularVelocityPower4;	//M_202 (in lattice units)
+	moments[16] *= molecularVelocityPower4;	//!M_202 (in lattice units)
 
 	moments[17] = distribution[14] + distribution[15] + distribution[16] + distribution[17];
-	moments[17] *= molecularVelocityPower4;	//M_220 (in lattice units)
+	moments[17] *= molecularVelocityPower4;	//!M_220 (in lattice units)
 
 	moments[18] = distribution[8] + distribution[9] + distribution[12] + distribution[13];
-	moments[18] *= molecularVelocityPower4;	//M_022 (in lattice units)
+	moments[18] *= molecularVelocityPower4;	//!M_022 (in lattice units)
 
-}//end calcAllMoments_RMbasis
+} //!end calcAllMoments_RMbasis
 
 
-void Voxel::transformMomentsToDistributions_RMbasis(double* distribution, double* moments, Control& bc)		//method to transform raw moments to distributions
+void Voxel::transformMomentsToDistributions_RMbasis(double* distribution, double* moments, Control& bc)		//!method to transform raw moments to distributions
 {
-	//inverse molecular velocities
+	//!inverse molecular velocities
 	static double xsi = 1. / bc.getMolecularVelocity();
 	static double xsiPower2 = pow(xsi, 2);
 	static double xsiPower3 = pow(xsi, 3);
@@ -2035,7 +1929,7 @@ void Voxel::transformMomentsToDistributions_RMbasis(double* distribution, double
 
 	static double oneDivSix = 1. / 6.;
 
-	//transform moments to distributions for all directions (do only necessary calculations, i.e. matrix entry !=0)
+	//!transform moments to distributions for all directions (do only necessary calculations, i.e. matrix entry !=0)
 	distribution[0] = 0.5 * moments[1] * xsi + oneDivSix * (moments[4] + 2. * moments[5] - moments[6]) * xsiPower2 - 0.5 * (moments[11] + moments[15]) * xsiPower3 - 0.5 * (moments[16] + moments[17]) * xsiPower4;
 	distribution[1] = 0.5 * moments[2] * xsi + oneDivSix * (moments[4] - moments[5] + 2. * moments[6]) * xsiPower2 - 0.5 * (moments[13] + moments[14]) * xsiPower3 - 0.5 * (moments[17] + moments[18]) * xsiPower4;
 	distribution[2] = -0.5 * moments[1] * xsi + oneDivSix * (moments[4] + 2. * moments[5] - moments[6]) * xsiPower2 + 0.5 * (moments[11] + moments[15]) * xsiPower3 - 0.5 * (moments[16] + moments[17]) * xsiPower4;
@@ -2055,7 +1949,7 @@ void Voxel::transformMomentsToDistributions_RMbasis(double* distribution, double
 	distribution[16] = 0.25 * moments[7] * xsiPower2 + 0.25 * (moments[14] + moments[15]) * xsiPower3 + 0.25 * moments[17] * xsiPower4;
 	distribution[17] = 0.25 * moments[7] * xsiPower2 - 0.25 * (moments[14] + moments[15]) * xsiPower3 + 0.25 * moments[17] * xsiPower4;
 	distribution[18] = moments[0] - moments[4] * xsiPower2 + (moments[16] + moments[17] + moments[18]) * xsiPower4;
-}//end transformRawMomentsToDistributions
+} //!end transformRawMomentsToDistributions
 
 
 void Voxel::collideMRT_GSbasis(Control& bc, bool& alternating)
@@ -2416,140 +2310,3 @@ void Voxel::calcAllMomentsPreCol_GSbasis(Control& bc, double* moments)
 	moments[18] *= molecularVelocityCubic;	//!function for developing moment mz
 }
 
-
-void Voxel::forceVectorToMomentSpace_GSbasis(Control& bc, double* forceVector, double* forceVectorMomentSpace)
-{
-	double molecularVelocity = bc.getMolecularVelocity();
-	double molecularVelocitySquared = pow(molecularVelocity, 2.);
-	double molecularVelocityCubic = pow(molecularVelocity, 3.);
-	double molecularVelocityQuartic = pow(molecularVelocity, 4.);
-
-	//!calc forceVectorMomentSpace --> save operations by hard coding
-	//!transform source vector to moment space
-	forceVectorMomentSpace[0] = 0.;
-	for (int dir = 0; dir < 19; dir++) forceVectorMomentSpace[0] += forceVector[dir];
-
-	forceVectorMomentSpace[1] = 0.;
-	for (int dir = 6; dir < 18; dir++) forceVectorMomentSpace[1] += forceVector[dir];
-	forceVectorMomentSpace[1] -= forceVector[18];
-	forceVectorMomentSpace[1] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[2] = 0.;
-	for (int dir = 0; dir < 6; dir++) forceVectorMomentSpace[2] -= 2. * forceVector[dir];
-	for (int dir = 6; dir < 19; dir++) forceVectorMomentSpace[2] += forceVector[dir];
-	forceVectorMomentSpace[2] *= molecularVelocityQuartic;
-
-	forceVectorMomentSpace[3] = forceVector[0] - forceVector[2] + forceVector[6] + forceVector[7] - forceVector[10] - forceVector[11] - forceVector[14] + forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[3] *= molecularVelocity;
-
-	forceVectorMomentSpace[4] = -2. * forceVector[0] + 2 * forceVector[2] + forceVector[6] + forceVector[7] - forceVector[10] - forceVector[11] - forceVector[14] + forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[4] *= molecularVelocityCubic;
-
-	forceVectorMomentSpace[5] = forceVector[1] - forceVector[3] + forceVector[8] + forceVector[9] - forceVector[12] - forceVector[13] + forceVector[14] - forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[5] *= molecularVelocity;
-
-	forceVectorMomentSpace[6] = -2. * forceVector[1] + 2 * forceVector[3] + forceVector[8] + forceVector[9] - forceVector[12] - forceVector[13] + forceVector[14] - forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[6] *= molecularVelocityCubic;
-
-	forceVectorMomentSpace[7] = forceVector[4] - forceVector[5] + forceVector[6] - forceVector[7] + forceVector[8] - forceVector[9] + forceVector[10] - forceVector[11] + forceVector[12] - forceVector[13];
-	forceVectorMomentSpace[7] *= molecularVelocity;
-
-	forceVectorMomentSpace[8] = -2. * forceVector[4] + 2 * forceVector[5] + forceVector[6] - forceVector[7] + forceVector[8] - forceVector[9] + forceVector[10] - forceVector[11] + forceVector[12] - forceVector[13];
-	forceVectorMomentSpace[8] *= molecularVelocityCubic;
-
-	forceVectorMomentSpace[9] = 2. * forceVector[0] - forceVector[1] + 2. * forceVector[2] - forceVector[3] - forceVector[4] - forceVector[5] + forceVector[6] + forceVector[7] - 2. * forceVector[8] - 2. * forceVector[9] + forceVector[10] + forceVector[11]
-		- 2. * forceVector[12] - 2. * forceVector[13] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[9] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[10] = -2. * forceVector[0] + forceVector[1] - 2. * forceVector[2] + forceVector[3] + forceVector[4] + forceVector[5] + forceVector[6] + forceVector[7] - 2. * forceVector[8] - 2. * forceVector[9] + forceVector[10] + forceVector[11]
-		- 2. * forceVector[12] - 2. * forceVector[13] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[10] *= molecularVelocityQuartic;
-
-	forceVectorMomentSpace[11] = forceVector[1] + forceVector[3] - forceVector[4] - forceVector[5] - forceVector[6] - forceVector[7] - forceVector[10] - forceVector[11] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[11] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[12] = -forceVector[1] - forceVector[3] + forceVector[4] + forceVector[5] - forceVector[6] - forceVector[7] - forceVector[10] - forceVector[11] + forceVector[14] + forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[12] *= molecularVelocityQuartic;
-
-	forceVectorMomentSpace[13] = -forceVector[14] - forceVector[15] + forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[13] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[14] = forceVector[8] - forceVector[9] - forceVector[12] + forceVector[13];
-	forceVectorMomentSpace[14] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[15] = forceVector[6] - forceVector[7] - forceVector[10] + forceVector[11];
-	forceVectorMomentSpace[15] *= molecularVelocitySquared;
-
-	forceVectorMomentSpace[16] = -forceVector[6] - forceVector[7] + forceVector[10] + forceVector[11] - forceVector[14] + forceVector[15] + forceVector[16] - forceVector[17];
-	forceVectorMomentSpace[16] *= molecularVelocityCubic;
-
-	forceVectorMomentSpace[17] = forceVector[8] + forceVector[9] - forceVector[12] - forceVector[13] - forceVector[14] + forceVector[15] - forceVector[16] + forceVector[17];
-	forceVectorMomentSpace[17] *= molecularVelocityCubic;
-
-	forceVectorMomentSpace[18] = forceVector[6] - forceVector[7] - forceVector[8] + forceVector[9] + forceVector[10] - forceVector[11] - forceVector[12] + forceVector[13];
-	forceVectorMomentSpace[18] *= molecularVelocityCubic;
-}
-
-
-void Voxel::forceVectorToPopSpace_GSbasis(Control& bc, double* forceVectorMomentSpace, double* forceVector)
-{
-	double xsi = 1. / bc.getMolecularVelocity();
-	double xsiPower2 = pow(xsi, 2.);
-	double xsiPower3 = pow(xsi, 3.);
-	double xsiPower4 = pow(xsi, 4.);
-
-	//!multiplicators for mrt back transformation
-	double prefactors[19][19] = { {1. / 18.,1. / 18.,1. / 18.,1. / 18.,1. / 18.,1. / 18.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 36.,1. / 3.},
-									  {0.,0.,0.,0.,0.,0.,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,1. / 24. * xsiPower2,-0.5 * xsiPower2},
-									  {-1. / 18. * xsiPower4,-1. / 18. * xsiPower4,-1. / 18. * xsiPower4,-1. / 18. * xsiPower4,-1. / 18. * xsiPower4,-1. / 18. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 72. * xsiPower4,1. / 6. * xsiPower4},
-									  {1. / 6. * xsi,0.,-1. / 6. * xsi,0.,0.,0.,1. / 12. * xsi,1. / 12. * xsi,0.,0.,-1. / 12. * xsi,-1. / 12. * xsi,0.,0.,-1. / 12. * xsi,1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,0.},
-									  {-1. / 6. * xsiPower3,0.,1. / 6. * xsiPower3,0.,0.,0.,1. / 24. * xsiPower3,1. / 24. * xsiPower3,0.,0.,-1. / 24. * xsiPower3,-1. / 24. * xsiPower3,0.,0.,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,0.},
-									  {0.,1. / 6. * xsi,0.,-1. / 6. * xsi,0.,0.,0.,0.,1. / 12. * xsi,1. / 12. * xsi,0.,0.,-1. / 12. * xsi,-1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,0.},
-									  {0.,-1. / 6. * xsiPower3,0.,1. / 6. * xsiPower3,0.,0.,0.,0.,1. / 24. * xsiPower3,1. / 24. * xsiPower3,0.,0.,-1. / 24. * xsiPower3,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,0.},
-									  {0.,0.,0.,0.,1. / 6. * xsi,-1. / 6. * xsi,1. / 12. * xsi,-1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,1. / 12. * xsi,-1. / 12. * xsi,0.,0.,0.,0.,0.},
-									  {0.,0.,0.,0.,-1. / 6. * xsiPower3,1. / 6. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,1. / 24. * xsiPower3,-1. / 24. * xsiPower3,0.,0.,0.,0.,0.},
-									  {1. / 12. * xsiPower2,-1. / 24. * xsiPower2,1. / 12. * xsiPower2,-1. / 24. * xsiPower2,-1. / 24. * xsiPower2,-1. / 24. * xsiPower2,1. / 48. * xsiPower2,1. / 48. * xsiPower2,-1. / 24. * xsiPower2,-1. / 24. * xsiPower2,1. / 48. * xsiPower2,1. / 48. * xsiPower2,-1. / 24. * xsiPower2,-1. / 24. * xsiPower2,1. / 48. * xsiPower2,1. / 48. * xsiPower2,1. / 48. * xsiPower2,1. / 48. * xsiPower2,0.},
-									  {-1. / 12. * xsiPower4,1. / 24. * xsiPower4,-1. / 12. * xsiPower4,1. / 24. * xsiPower4,1. / 24. * xsiPower4,1. / 24. * xsiPower4,1. / 48. * xsiPower4,1. / 48. * xsiPower4,-1. / 24. * xsiPower4,-1. / 24. * xsiPower4,1. / 48. * xsiPower4,1. / 48. * xsiPower4,-1. / 24. * xsiPower4,-1. / 24. * xsiPower4,1. / 48. * xsiPower4,1. / 48. * xsiPower4,1. / 48. * xsiPower4,1. / 48. * xsiPower4,0.},
-									  {0.,1. / 8. * xsiPower2,0.,1. / 8. * xsiPower2,-1. / 8. * xsiPower2,-1. / 8. * xsiPower2,-1. / 16. * xsiPower2,-1. / 16. * xsiPower2,0.,0.,-1. / 16. * xsiPower2,-1. / 16. * xsiPower2,0.,0.,1. / 16. * xsiPower2,1. / 16. * xsiPower2,1. / 16. * xsiPower2,1. / 16. * xsiPower2,0.},
-									  {0.,-1. / 8. * xsiPower4,0.,-1. / 8. * xsiPower4,1. / 8. * xsiPower4,1. / 8. * xsiPower4,-1. / 16. * xsiPower4,-1. / 16. * xsiPower4,0.,0.,-1. / 16. * xsiPower4,-1. / 16. * xsiPower4,0.,0.,1. / 16. * xsiPower4,1. / 16. * xsiPower4,1. / 16. * xsiPower4,1. / 16. * xsiPower4,0.},
-									  {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,-1. / 4 * xsiPower2,-1. / 4 * xsiPower2,1. / 4 * xsiPower2,1. / 4 * xsiPower2,0.},
-									  {0.,0.,0.,0.,0.,0.,0.,0.,1. / 4 * xsiPower2,-1. / 4 * xsiPower2,0.,0.,-1. / 4 * xsiPower2,1. / 4 * xsiPower2,0.,0.,0.,0.,0.},
-									  {0.,0.,0.,0.,0.,0.,1. / 4 * xsiPower2,-1. / 4 * xsiPower2,0.,0.,-1. / 4 * xsiPower2,1. / 4 * xsiPower2,0.,0.,0.,0.,0.,0.,0.},
-									  {0.,0.,0.,0.,0.,0.,-1. / 8. * xsiPower3,-1. / 8. * xsiPower3,0.,0.,1. / 8. * xsiPower3,1. / 8. * xsiPower3,0.,0.,-1. / 8. * xsiPower3,1. / 8. * xsiPower3,1. / 8. * xsiPower3,-1. / 8. * xsiPower3,0.},
-									  {0.,0.,0.,0.,0.,0.,0.,0.,1. / 8. * xsiPower3,1. / 8. * xsiPower3,0.,0.,-1. / 8. * xsiPower3,-1. / 8. * xsiPower3,-1. / 8. * xsiPower3,1. / 8. * xsiPower3,-1. / 8. * xsiPower3,1. / 8. * xsiPower3,0.},
-									  {0.,0.,0.,0.,0.,0.,1. / 8. * xsiPower3,-1. / 8. * xsiPower3,-1. / 8. * xsiPower3,1. / 8. * xsiPower3,1. / 8. * xsiPower3,-1. / 8. * xsiPower3,-1. / 8. * xsiPower3,1. / 8. * xsiPower3,0.,0.,0.,0.,0.}
-	};
-
-	//!transform forceVectorMomentSpace to forceVector for all directions (do only necessary calculations, i.e. matrix entry !=0)
-	forceVector[0] = prefactors[0][0] * forceVectorMomentSpace[0] + prefactors[2][0] * forceVectorMomentSpace[2] + prefactors[3][0] * forceVectorMomentSpace[3] + prefactors[4][0] * forceVectorMomentSpace[4] + prefactors[9][0] * forceVectorMomentSpace[9] + prefactors[10][0] * forceVectorMomentSpace[10];
-	forceVector[1] = prefactors[0][1] * forceVectorMomentSpace[0] + prefactors[2][1] * forceVectorMomentSpace[2] + prefactors[5][1] * forceVectorMomentSpace[5] + prefactors[6][1] * forceVectorMomentSpace[6] + prefactors[9][1] * forceVectorMomentSpace[9] + prefactors[10][1] * forceVectorMomentSpace[10] + prefactors[11][1] * forceVectorMomentSpace[11] + prefactors[12][1] * forceVectorMomentSpace[12];
-	forceVector[2] = prefactors[0][2] * forceVectorMomentSpace[0] + prefactors[2][2] * forceVectorMomentSpace[2] + prefactors[3][2] * forceVectorMomentSpace[3] + prefactors[4][2] * forceVectorMomentSpace[4] + prefactors[9][2] * forceVectorMomentSpace[9] + prefactors[10][2] * forceVectorMomentSpace[10];
-	forceVector[3] = prefactors[0][3] * forceVectorMomentSpace[0] + prefactors[2][3] * forceVectorMomentSpace[2] + prefactors[5][3] * forceVectorMomentSpace[5] + prefactors[6][3] * forceVectorMomentSpace[6] + prefactors[9][3] * forceVectorMomentSpace[9] + prefactors[10][3] * forceVectorMomentSpace[10] + prefactors[11][3] * forceVectorMomentSpace[11] + prefactors[12][3] * forceVectorMomentSpace[12];
-	forceVector[4] = prefactors[0][4] * forceVectorMomentSpace[0] + prefactors[2][4] * forceVectorMomentSpace[2] + prefactors[7][4] * forceVectorMomentSpace[7] + prefactors[8][4] * forceVectorMomentSpace[8] + prefactors[9][4] * forceVectorMomentSpace[9] + prefactors[10][4] * forceVectorMomentSpace[10] + prefactors[11][4] * forceVectorMomentSpace[11] + prefactors[12][4] * forceVectorMomentSpace[12];
-	forceVector[5] = prefactors[0][5] * forceVectorMomentSpace[0] + prefactors[2][5] * forceVectorMomentSpace[2] + prefactors[7][5] * forceVectorMomentSpace[7] + prefactors[8][5] * forceVectorMomentSpace[8] + prefactors[9][5] * forceVectorMomentSpace[9] + prefactors[10][5] * forceVectorMomentSpace[10] + prefactors[11][5] * forceVectorMomentSpace[11] + prefactors[12][5] * forceVectorMomentSpace[12];
-	forceVector[6] = prefactors[0][6] * forceVectorMomentSpace[0] + prefactors[1][6] * forceVectorMomentSpace[1] + prefactors[2][6] * forceVectorMomentSpace[2] + prefactors[3][6] * forceVectorMomentSpace[3] + prefactors[4][6] * forceVectorMomentSpace[4] + prefactors[7][6] * forceVectorMomentSpace[7] + prefactors[8][6] * forceVectorMomentSpace[8] + prefactors[9][6] * forceVectorMomentSpace[9] + prefactors[10][6] * forceVectorMomentSpace[10]
-		+ prefactors[11][6] * forceVectorMomentSpace[11] + prefactors[12][6] * forceVectorMomentSpace[12] + prefactors[15][6] * forceVectorMomentSpace[15] + prefactors[16][6] * forceVectorMomentSpace[16] + prefactors[18][6] * forceVectorMomentSpace[18];
-	forceVector[7] = prefactors[0][7] * forceVectorMomentSpace[0] + prefactors[1][7] * forceVectorMomentSpace[1] + prefactors[2][7] * forceVectorMomentSpace[2] + prefactors[3][7] * forceVectorMomentSpace[3] + prefactors[4][7] * forceVectorMomentSpace[4] + prefactors[7][7] * forceVectorMomentSpace[7] + prefactors[8][7] * forceVectorMomentSpace[8] + prefactors[9][7] * forceVectorMomentSpace[9] + prefactors[10][7] * forceVectorMomentSpace[10]
-		+ prefactors[11][7] * forceVectorMomentSpace[11] + prefactors[12][7] * forceVectorMomentSpace[12] + prefactors[15][7] * forceVectorMomentSpace[15] + prefactors[16][7] * forceVectorMomentSpace[16] + prefactors[18][7] * forceVectorMomentSpace[18];
-	forceVector[8] = prefactors[0][8] * forceVectorMomentSpace[0] + prefactors[1][8] * forceVectorMomentSpace[1] + prefactors[2][8] * forceVectorMomentSpace[2] + prefactors[5][8] * forceVectorMomentSpace[5] + prefactors[6][8] * forceVectorMomentSpace[6] + prefactors[7][8] * forceVectorMomentSpace[7] + prefactors[8][8] * forceVectorMomentSpace[8] + prefactors[9][8] * forceVectorMomentSpace[9] + prefactors[10][8] * forceVectorMomentSpace[10]
-		+ prefactors[14][8] * forceVectorMomentSpace[14] + prefactors[17][8] * forceVectorMomentSpace[17] + prefactors[18][8] * forceVectorMomentSpace[18];
-	forceVector[9] = prefactors[0][9] * forceVectorMomentSpace[0] + prefactors[1][9] * forceVectorMomentSpace[1] + prefactors[2][9] * forceVectorMomentSpace[2] + prefactors[5][9] * forceVectorMomentSpace[5] + prefactors[6][9] * forceVectorMomentSpace[6] + prefactors[7][9] * forceVectorMomentSpace[7] + prefactors[8][9] * forceVectorMomentSpace[8] + prefactors[9][9] * forceVectorMomentSpace[9] + prefactors[10][9] * forceVectorMomentSpace[10]
-		+ prefactors[14][9] * forceVectorMomentSpace[14] + prefactors[17][9] * forceVectorMomentSpace[17] + prefactors[18][9] * forceVectorMomentSpace[18];
-	forceVector[10] = prefactors[0][10] * forceVectorMomentSpace[0] + prefactors[1][10] * forceVectorMomentSpace[1] + prefactors[2][10] * forceVectorMomentSpace[2] + prefactors[3][10] * forceVectorMomentSpace[3] + prefactors[4][10] * forceVectorMomentSpace[4] + prefactors[7][10] * forceVectorMomentSpace[7] + prefactors[8][10] * forceVectorMomentSpace[8] + prefactors[9][10] * forceVectorMomentSpace[9] + prefactors[10][10] * forceVectorMomentSpace[10]
-		+ prefactors[11][10] * forceVectorMomentSpace[11] + prefactors[12][10] * forceVectorMomentSpace[12] + prefactors[15][10] * forceVectorMomentSpace[15] + prefactors[16][10] * forceVectorMomentSpace[16] + prefactors[18][10] * forceVectorMomentSpace[18];
-	forceVector[11] = prefactors[0][11] * forceVectorMomentSpace[0] + prefactors[1][11] * forceVectorMomentSpace[1] + prefactors[2][11] * forceVectorMomentSpace[2] + prefactors[3][11] * forceVectorMomentSpace[3] + prefactors[4][11] * forceVectorMomentSpace[4] + prefactors[7][11] * forceVectorMomentSpace[7] + prefactors[8][11] * forceVectorMomentSpace[8] + prefactors[9][11] * forceVectorMomentSpace[9] + prefactors[10][11] * forceVectorMomentSpace[10]
-		+ prefactors[11][11] * forceVectorMomentSpace[11] + prefactors[12][11] * forceVectorMomentSpace[12] + prefactors[15][11] * forceVectorMomentSpace[15] + prefactors[16][11] * forceVectorMomentSpace[16] + prefactors[18][11] * forceVectorMomentSpace[18];
-	forceVector[12] = prefactors[0][12] * forceVectorMomentSpace[0] + prefactors[1][12] * forceVectorMomentSpace[1] + prefactors[2][12] * forceVectorMomentSpace[2] + prefactors[5][12] * forceVectorMomentSpace[5] + prefactors[6][12] * forceVectorMomentSpace[6] + prefactors[7][12] * forceVectorMomentSpace[7] + prefactors[8][12] * forceVectorMomentSpace[8] + prefactors[9][12] * forceVectorMomentSpace[9] + prefactors[10][12] * forceVectorMomentSpace[10]
-		+ prefactors[14][12] * forceVectorMomentSpace[14] + prefactors[17][12] * forceVectorMomentSpace[17] + prefactors[18][12] * forceVectorMomentSpace[18];
-	forceVector[13] = prefactors[0][13] * forceVectorMomentSpace[0] + prefactors[1][13] * forceVectorMomentSpace[1] + prefactors[2][13] * forceVectorMomentSpace[2] + prefactors[5][13] * forceVectorMomentSpace[5] + prefactors[6][13] * forceVectorMomentSpace[6] + prefactors[7][13] * forceVectorMomentSpace[7] + prefactors[8][13] * forceVectorMomentSpace[8] + prefactors[9][13] * forceVectorMomentSpace[9] + prefactors[10][13] * forceVectorMomentSpace[10]
-		+ prefactors[14][13] * forceVectorMomentSpace[14] + prefactors[17][13] * forceVectorMomentSpace[17] + prefactors[18][13] * forceVectorMomentSpace[18];
-	forceVector[14] = prefactors[0][14] * forceVectorMomentSpace[0] + prefactors[1][14] * forceVectorMomentSpace[1] + prefactors[2][14] * forceVectorMomentSpace[2] + prefactors[3][14] * forceVectorMomentSpace[3] + prefactors[4][14] * forceVectorMomentSpace[4] + prefactors[5][14] * forceVectorMomentSpace[5] + prefactors[6][14] * forceVectorMomentSpace[6] + prefactors[9][14] * forceVectorMomentSpace[9] + prefactors[10][14] * forceVectorMomentSpace[10] + prefactors[11][14] * forceVectorMomentSpace[11]
-		+ prefactors[12][14] * forceVectorMomentSpace[12] + prefactors[13][14] * forceVectorMomentSpace[13] + prefactors[16][14] * forceVectorMomentSpace[16] + prefactors[17][14] * forceVectorMomentSpace[17];
-	forceVector[15] = prefactors[0][15] * forceVectorMomentSpace[0] + prefactors[1][15] * forceVectorMomentSpace[1] + prefactors[2][15] * forceVectorMomentSpace[2] + prefactors[3][15] * forceVectorMomentSpace[3] + prefactors[4][15] * forceVectorMomentSpace[4] + prefactors[5][15] * forceVectorMomentSpace[5] + prefactors[6][15] * forceVectorMomentSpace[6] + prefactors[9][15] * forceVectorMomentSpace[9] + prefactors[10][15] * forceVectorMomentSpace[10] + prefactors[11][15] * forceVectorMomentSpace[11]
-		+ prefactors[12][15] * forceVectorMomentSpace[12] + prefactors[13][15] * forceVectorMomentSpace[13] + prefactors[16][15] * forceVectorMomentSpace[16] + prefactors[17][15] * forceVectorMomentSpace[17];
-	forceVector[16] = prefactors[0][16] * forceVectorMomentSpace[0] + prefactors[1][16] * forceVectorMomentSpace[1] + prefactors[2][16] * forceVectorMomentSpace[2] + prefactors[3][16] * forceVectorMomentSpace[3] + prefactors[4][16] * forceVectorMomentSpace[4] + prefactors[5][16] * forceVectorMomentSpace[5] + prefactors[6][16] * forceVectorMomentSpace[6] + prefactors[9][16] * forceVectorMomentSpace[9] + prefactors[10][16] * forceVectorMomentSpace[10] + prefactors[11][16] * forceVectorMomentSpace[11]
-		+ prefactors[12][16] * forceVectorMomentSpace[12] + prefactors[13][16] * forceVectorMomentSpace[13] + prefactors[16][16] * forceVectorMomentSpace[16] + prefactors[17][16] * forceVectorMomentSpace[17];
-	forceVector[17] = prefactors[0][17] * forceVectorMomentSpace[0] + prefactors[1][17] * forceVectorMomentSpace[1] + prefactors[2][17] * forceVectorMomentSpace[2] + prefactors[3][17] * forceVectorMomentSpace[3] + prefactors[4][17] * forceVectorMomentSpace[4] + prefactors[5][17] * forceVectorMomentSpace[5] + prefactors[6][17] * forceVectorMomentSpace[6] + prefactors[9][17] * forceVectorMomentSpace[9] + prefactors[10][17] * forceVectorMomentSpace[10] + prefactors[11][17] * forceVectorMomentSpace[11]
-		+ prefactors[12][17] * forceVectorMomentSpace[12] + prefactors[13][17] * forceVectorMomentSpace[13] + prefactors[16][17] * forceVectorMomentSpace[16] + prefactors[17][17] * forceVectorMomentSpace[17];
-	forceVector[18] = prefactors[0][18] * forceVectorMomentSpace[0] + prefactors[1][18] * forceVectorMomentSpace[1] + prefactors[2][18] * forceVectorMomentSpace[2];
-}

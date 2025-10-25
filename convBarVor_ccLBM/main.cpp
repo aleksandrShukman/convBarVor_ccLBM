@@ -231,7 +231,7 @@ int main(int argc, char* argv[])
     } //!end else
 
     endTotal = steady_clock::now();
-    cout << endl << "given maximum number of time steps or convergence criterion reached" << endl << endl;
+    cout << endl << "given maximum number of time steps reached" << endl << endl;
     cout << "total computation time: ";
     display(cout, duration_cast<nanoseconds>(endTotal - beginTotal));
 } //!end main

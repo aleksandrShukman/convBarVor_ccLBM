@@ -183,7 +183,6 @@ public:
 	virtual void writeResultsAtVoxel(string filename, bool& alternatingL0, bool& alternatingL1, Control& bc_);
 	virtual void initialization(Control& bc);
 
-	virtual inline double getDeviation() { return deviation_; }
 	virtual inline double getDistribution(bool& alternating, int& dir, int& level, int& i, int& j, int& k) { if (dir < 19) return lattice_[level][i][j][k]->getDistribution(alternating, dir); else return NULL; };
 	virtual double readValue(string filename, string keyword); //!filename: name of initialization file; keyword: string to be read from file; return value: (double) to corresponding keyword
 

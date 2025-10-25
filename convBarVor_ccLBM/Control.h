@@ -42,9 +42,7 @@ class Control
     inline int            getMPnum() {return MPnum_;}
     inline int            getOrderOfEquilibrium() { return equilOrder_; }
     inline void           setTime_(double time) { time_ = time; }
-    inline bool           getTurbulenceModelling() { return turbulenceModelling_; }
 	inline double		  getSpacing() {return spacing_;}
-	inline double		  getConvCriterion() { return convCriterion_; }
 	inline double		  getHybridParameter() { return hybridPar_; }
 	inline double		  getDensity() {return density_;}
     inline double		  getMPradius() { return MPradius_; }
@@ -55,7 +53,6 @@ class Control
 	inline double		  getMolecularVelocity() {return molecularVelocity_;}
 	inline double		  getSpeedOfSound() {return speedOfSound_;}
 	inline double		  getKinematicViscosity() {return kinematicViscosity_;}
-	inline double         getSmagorinsky() {return smagorinskyConstant_;}
 	inline double         getTimeStep() {return timeStep_;}
 	inline double		  getChannelSizeX_() {return channelSizeX_;}
 	inline double		  getChannelSizeY_() {return channelSizeY_;}
@@ -79,7 +76,6 @@ class Control
 	int	   refLayer_; //!number of refined coarse voxels at boundaries
     int	   refLayerX_; //!number of refined coarse cells at boundaries
 	double spacing_; //!mesh spacing in level 0
-	double convCriterion_; //!convergence criterion
 	double channelSizeX_, channelSizeY_, channelSizeZ_; //!channel dimensions in x, y and z direction
 
 	//!hybrid recursive-regularization
@@ -107,11 +103,7 @@ class Control
 	double collisionFrequency_;	    //!dimensionless collision frequency on level 0
 	double reynoldsNumber_;		    //!reynolds number
 
-	//!turbulence parameters (needed later)
-	bool   turbulenceModelling_;    //!if true LES is performed
-	double smagorinskyConstant_;	//!smagorinsky constant
-
-	//!control parameter
+	//!control parameters
 	int    timeStepMax_; //!number of time steps to run(in level 0)
 	int    writeInterval_; //!number of time steps between to consecutive result files
 	int    numberOfThreads_; //!number of cpus for SMP

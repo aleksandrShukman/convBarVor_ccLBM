@@ -11,7 +11,7 @@ class Vector3D
 {
 public:
 
-	// Constructor
+	//!constructor
 	Vector3D()
 	{
 		coordinates_[0]=0;
@@ -30,7 +30,7 @@ public:
 	{
 			*this=vec;
 	}
-	// Assignment operator
+	//!assignment operator
 	Vector3D& operator=(const Vector3D& rhs)
 	{
 		coordinates_[0]=rhs.getX();
@@ -39,7 +39,7 @@ public:
 		return *this;
 	}
 
-	// Members
+	//!members
 
 		// Get
 		inline double getX() const { return coordinates_[0]; }

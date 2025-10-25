@@ -39,7 +39,6 @@ public:
 	virtual inline int    getLevel() const { return level_; }
     virtual inline int    getNormalDir() { return normalDir_; }
     virtual inline bool   getIsCorner() { return isCorner_; }
-    virtual inline string getTag() { return tag_; }
     virtual inline double getTimeStep() const { return timeStep_; }
 	virtual inline double getX() const { return x_; }
 	virtual inline double getY() const { return y_; }
@@ -55,6 +54,7 @@ public:
 	virtual inline double getCubicMachCorrectionPreCol(int& dir) { if (dir < 19) return psiPreCol_[dir]; else return NULL; };
 	virtual inline double getStrainRateTensor(int i, int j) { return strainRateTensor_[i][j]; }
 	virtual inline double getStrainRateTensorFD(int i, int j) { return strainRateTensorFD_[i][j]; }
+    virtual inline string getTag() { return tag_; }
     virtual inline Voxel* getNeighbor(int dir) { if (dir < 18) return neighbors_[dir]; else return NULL; }
 	virtual inline Voxel* getPartner(int idx) { return partner_[idx]; }
 	virtual inline Voxel* getNormalNeighbor() { return normalNeighbor_; }
@@ -111,10 +111,6 @@ public:
 	virtual void calcAllMomentsPreCol_GSbasis(Control& bc, double* moments);
 	virtual void calcEquilibriumMoments2_GSbasis(double* equilibriumMoments, double& density, double& momentumX, double& momentumY, double& momentumZ);
 	virtual void transformMomentsToDistributions_GSbasis(double* distributions, double* moments, Control& bc);
-	virtual void forceVectorToMomentSpace_GSbasis(Control& bc, double* forceVector, double* forceVectorMomentSpace);
-	virtual void forceVectorToPopSpace_GSbasis(Control& bc, double* forceVectorMomentSpace, double* forceVector);
-	virtual void forceVectorToMomentSpace_RMbasis(Control& bc, double* forceVector, double* forceVectorMomentSpace);
-	virtual void forceVectorToPopSpace_RMbasis(Control& bc, double* forceVectorMomentSpace, double* forceVector);
 	virtual void calcStrainRateTensorFDandCubicMachCorrection(Control& bc);
 	virtual double calcDensity(Control& bc, bool& alternating);
 	virtual double calcDensityPreCol(Control& bc);
@@ -125,7 +121,6 @@ public:
 
 	//!bounce-back methods
 	virtual inline void halfWayBounceBack(bool&/*alternating*/, Control&/*bc*/) {}; //!virtual declaration for wallnode
-	virtual inline void bouzidiBounceBack() {}; //!virtual declaration for wallnode
 
 	//!new members from Interface
 	virtual inline void explode(bool&/*distributionFine*/, bool& /*distributionCoarse*/) { cerr << "\nExplode from voxel invoked." << flush; exit(1); };
